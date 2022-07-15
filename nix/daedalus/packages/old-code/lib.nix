@@ -4,12 +4,12 @@
 
 let
 
-  pkgs = import inputs.nixpkgs-src {
+  pkgs = import inputs.nixpkgs-ancient {
     inherit system;
-    inherit (inputs.haskellNix) config;
+    inherit (inputs.cardano-wallet-unpatched.inputs.haskellNix) config;
     overlays = [
-      inputs.haskellNix.overlay
-      inputs.iohkNix.overlays.cardano-lib
+      inputs.cardano-wallet-unpatched.inputs.haskellNix.overlay
+      inputs.cardano-wallet-unpatched.inputs.iohkNix.overlays.cardano-lib
     ];
   };
 

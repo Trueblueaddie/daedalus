@@ -17,7 +17,7 @@ let
   linux   = outputs.x86_64-linux.daedalus.packages.x86_64-linux;
   windows = outputs.x86_64-linux.daedalus.packages.x86_64-windows;
 
-  inherit (outputs.${system}.daedalus.library) forEachCluster;
+  inherit (import ./nix/daedalus/packages/clusters.nix) forEachCluster;
 
 in
 
@@ -72,8 +72,11 @@ forEachCluster (cluster: { daedalus.x86_64-linux = linux.internal.${cluster}.dae
 
   # TODO: is this really needed? @michalrus
   ifd-pins = let
-    inherit (linux.internal.linux.mainnet.pkgs) runCommand lib;
-    inputs = { inherit (flake.inputs) iohkNix cardano-wallet cardano-shell; };
+    inherit (linux.internal.mainnet.pkgs) runCommand lib;
+    inputs = {
+      inherit (flake.inputs) cardano-wallet-unpatched cardano-shell;
+      inherit (flake.inputs.cardano-wallet-unpatched.inputs) iohkNix;
+    };
   in runCommand "ifd-pins" {} ''
     mkdir $out
     cd $out

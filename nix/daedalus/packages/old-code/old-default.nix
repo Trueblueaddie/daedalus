@@ -32,9 +32,9 @@ let
       });
     };
   };
-  pkgs = import inputs.nixpkgs-src { inherit system config; };
-  haskell-nix = inputs.haskellNix.legacyPackages.${system}.haskell-nix;
-  walletFlake = ((import inputs.flake-compat) {
+  pkgs = import inputs.nixpkgs-ancient { inherit system config; };
+  haskell-nix = inputs.cardano-wallet-unpatched.inputs.haskellNix.legacyPackages.${system}.haskell-nix;
+  walletFlake = ((import inputs.cardano-wallet-unpatched.inputs.flake-compat) {
     # FIXME: add patches in `flake.nix` after <https://github.com/NixOS/nix/issues/3920>
     src = pkgs.runCommand "cardano-wallet" {} ''
       cp -r ${inputs.cardano-wallet-unpatched} $out

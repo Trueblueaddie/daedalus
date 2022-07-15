@@ -560,7 +560,7 @@
     },
     "kroki-preprocessor": {
       "inputs": {
-        "nixpkgs": "nixpkgs_8",
+        "nixpkgs": "nixpkgs_7",
         "std": "std_2"
       },
       "locked": {
@@ -711,6 +711,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-ancient": {
+      "locked": {
+        "lastModified": 1635844945,
+        "narHash": "sha256-tZcL307dj28jgEU1Wdn+zwG9neyW0H2+ZjdVhvJxh9g=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b67e752c29f18a0ca5534a07661366d6a2c2e649",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b67e752c29f18a0ca5534a07661366d6a2c2e649",
+        "type": "github"
+      }
+    },
     "nixpkgs-nsis": {
       "flake": false,
       "locked": {
@@ -834,22 +850,6 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1635844945,
-        "narHash": "sha256-tZcL307dj28jgEU1Wdn+zwG9neyW0H2+ZjdVhvJxh9g=",
-        "owner": "Nixos",
-        "repo": "nixpkgs",
-        "rev": "b67e752c29f18a0ca5534a07661366d6a2c2e649",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Nixos",
-        "repo": "nixpkgs",
-        "rev": "b67e752c29f18a0ca5534a07661366d6a2c2e649",
-        "type": "github"
-      }
-    },
-    "nixpkgs_8": {
-      "locked": {
         "lastModified": 1652059086,
         "narHash": "sha256-CjHSbr6LSFkN4YBdTB6+8ZQmSqhsbiXqAeQ9hQJ/gBI=",
         "owner": "NixOS",
@@ -864,7 +864,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_9": {
+    "nixpkgs_8": {
       "locked": {
         "lastModified": 1650469885,
         "narHash": "sha256-BuILRZ6pzMnGey8/irbjGq1oo3vIvZa1pitSdZCmIXA=",
@@ -920,24 +920,13 @@
       "inputs": {
         "cardano-shell": "cardano-shell",
         "cardano-wallet-unpatched": "cardano-wallet-unpatched",
-        "flake-compat": [
-          "cardano-wallet-unpatched",
-          "flake-compat"
-        ],
-        "haskellNix": [
-          "cardano-wallet-unpatched",
-          "haskellNix"
-        ],
-        "iohkNix": [
-          "cardano-wallet-unpatched",
-          "iohkNix"
-        ],
         "nix-bundle": "nix-bundle",
-        "nixpkgs": "nixpkgs_7",
-        "nixpkgs-nsis": "nixpkgs-nsis",
-        "nixpkgs-src": [
+        "nixpkgs": [
+          "cardano-wallet-unpatched",
           "nixpkgs"
         ],
+        "nixpkgs-ancient": "nixpkgs-ancient",
+        "nixpkgs-nsis": "nixpkgs-nsis",
         "std": "std"
       }
     },
@@ -967,11 +956,11 @@
         "yants": "yants_2"
       },
       "locked": {
-        "lastModified": 1655841593,
-        "narHash": "sha256-2hzkbvhndv53NSpH7snpn/M1zOYx4k7rwz3Pm4w/UJw=",
+        "lastModified": 1657780861,
+        "narHash": "sha256-FpSLfuWn/rgMDm+wGJWTkd1fXh9cVpINALuMQQOVpiA=",
         "owner": "divnix",
         "repo": "std",
-        "rev": "3be03536b3a6767b5542fa14339fc34f5ea22ee7",
+        "rev": "c7793310b545c605dcdc623caa37255b42085c64",
         "type": "github"
       },
       "original": {
@@ -983,7 +972,7 @@
     "std_2": {
       "inputs": {
         "devshell": "devshell_2",
-        "nixpkgs": "nixpkgs_9",
+        "nixpkgs": "nixpkgs_8",
         "yants": "yants"
       },
       "locked": {

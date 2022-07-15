@@ -19,7 +19,7 @@ if system == "x86_64-linux" || system == "x86_64-darwin" || system == "aarch64-d
   (forEachCluster (cluster:
     import ./packages/old-code/old-shell.nix {
       inherit inputs system cluster;
-      pkgs = inputs.nixpkgs;
+      pkgs = import inputs.nixpkgs-ancient { inherit system; config = {}; };
       daedalusPkgs = common.${system}.mkInternal cluster;
     }
   ))
