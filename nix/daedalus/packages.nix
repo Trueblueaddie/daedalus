@@ -1,7 +1,8 @@
 { inputs, cell }:
 
 let
-  inherit (cell.library) forEachCluster;
+  common = import ./packages/common.nix { inherit inputs cell; };
+  inherit (common) forEachCluster;
   export = internal: attrName: builtins.mapAttrs (k: v: v.${attrName}) internal;
 in
 
@@ -11,14 +12,14 @@ if inputs.nixpkgs.system == "x86_64-linux" then rec {
   default = x86_64-linux;
 
   x86_64-linux = rec {
-    internal  = forEachCluster cell.library.x86_64-linux.mkInternal;
+    internal  = forEachCluster common.x86_64-linux.mkInternal;
     installer = export internal "wrappedBundle";
     package   = export internal "daedalus";
   };
 
   # E.g. `nix build -L .#daedalus-x86_64-windows.installer.testnet`
   x86_64-windows = rec {
-    internal  = forEachCluster cell.library.x86_64-windows.mkInternal;
+    internal  = forEachCluster common.x86_64-windows.mkInternal;
     installer = export internal "windows-installer";
   };
 
@@ -28,7 +29,7 @@ if inputs.nixpkgs.system == "x86_64-linux" then rec {
   default = x86_64-darwin;
 
   x86_64-darwin = rec {
-    internal  = forEachCluster cell.library.x86_64-darwin.mkInternal;
+    internal  = forEachCluster common.x86_64-darwin.mkInternal;
     installer = package;
     package   = forEachCluster (_: abort "Darwin package/installer is not yet a pure build, please use ‘scripts/build-installer-unix.sh’.");
   };
@@ -39,7 +40,7 @@ if inputs.nixpkgs.system == "x86_64-linux" then rec {
   default = aarch64-darwin;
 
   aarch64-darwin = rec {
-    internal  = forEachCluster cell.library.x86_64-darwin.mkInternal;
+    internal  = forEachCluster common.x86_64-darwin.mkInternal;
     installer = package;
     package   = forEachCluster (_: abort "Darwin package/installer is not yet a pure build, please use ‘scripts/build-installer-unix.sh’.");
   };

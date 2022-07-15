@@ -16,7 +16,6 @@
       inherit inputs;
       cellsFrom = ./nix;
       organelles = [
-        (std.functions "library")
         (std.installables "packages")
         (std.devshells "devshells")
       ];

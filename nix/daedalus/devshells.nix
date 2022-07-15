@@ -2,10 +2,12 @@
 
 let
 
-  # Infinite recursion in evaluation of `devShells.default`, if we use `cell.library.forEachCluster`.
+  common = import ./packages/common.nix { inherit inputs cell; };
+
+  # Infinite recursion in evaluation of `devShells.default`, if we use `common.forEachCluster`.
   # TODO: submit issue to `divnix/std`
-  inherit (import (inputs.self + "/nix/daedalus/library/clusters.nix")) forEachCluster;
-  #inherit (cell.library) forEachCluster;
+  inherit (import (inputs.self + "/nix/daedalus/packages/clusters.nix")) forEachCluster;
+  #inherit (common) forEachCluster;
 
   system = inputs.nixpkgs.system;
 
@@ -15,10 +17,10 @@ if system == "x86_64-linux" || system == "x86_64-darwin" || system == "aarch64-d
 
   # E.g. `nix develop .#testnet`:
   (forEachCluster (cluster:
-    import ./library/old-code/old-shell.nix {
+    import ./packages/old-code/old-shell.nix {
       inherit inputs system cluster;
       pkgs = inputs.nixpkgs;
-      daedalusPkgs = cell.library.${system}.mkInternal cluster;
+      daedalusPkgs = common.${system}.mkInternal cluster;
     }
   ))
 

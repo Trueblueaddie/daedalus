@@ -1,11 +1,13 @@
 { inputs, cell }:
 
+let common = import ./common.nix { inherit inputs cell; }; in
+
 {
   mkInternal = cluster: import ./old-code/old-default.nix {
     inherit inputs;
     cluster = cluster;
-    buildNum = toString cell.library.buildNumber;
-    target = "aarch64-darwin";
+    buildNum = toString common.buildNumber;
+    target = "x86_64-darwin";
     buildSystem = inputs.nixpkgs.system;
   };
 }
