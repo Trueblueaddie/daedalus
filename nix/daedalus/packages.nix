@@ -40,7 +40,7 @@ if inputs.nixpkgs.system == "x86_64-linux" then rec {
   default = aarch64-darwin;
 
   aarch64-darwin = rec {
-    internal  = forEachCluster common.x86_64-darwin.mkInternal;
+    internal  = forEachCluster common.aarch64-darwin.mkInternal;
     installer = package;
     package   = forEachCluster (_: abort "Darwin package/installer is not yet a pure build, please use ‘scripts/build-installer-unix.sh’.");
   };
