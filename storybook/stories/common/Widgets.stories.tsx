@@ -10,7 +10,6 @@ import StoryLayout from '../_support/StoryLayout';
 import enMessages from '../../../source/renderer/app/i18n/locales/en-US.json';
 import jpMessages from '../../../source/renderer/app/i18n/locales/ja-JP.json';
 import BigButtonForDialogs from '../../../source/renderer/app/components/widgets/BigButtonForDialogs';
-import MnemonicInputWidget from '../../../source/renderer/app/components/widgets/forms/MnemonicInputWidget';
 import InlineEditingInput from '../../../source/renderer/app/components/widgets/forms/InlineEditingInput';
 import CountdownWidget from '../../../source/renderer/app/components/widgets/CountdownWidget';
 // @ts-ignore ts-migrate(2307) FIXME: Cannot find module '../../../source/renderer/app/a... Remove this comment to see the full error message
@@ -22,6 +21,9 @@ import joinSharedIcon from '../../../source/renderer/app/assets/images/join-shar
 import TinySwitch from '../../../source/renderer/app/components/widgets/forms/TinySwitch';
 import ButtonLink from '../../../source/renderer/app/components/widgets/ButtonLink';
 import NormalSwitch from '../../../source/renderer/app/components/widgets/forms/NormalSwitch';
+import { Separator } from '../../../source/renderer/app/components/widgets/separator/Separator';
+import { CollapsibleSection } from '../../../source/renderer/app/components/widgets/collapsible-section/CollapsibleSection';
+import { VerticalSeparator } from '../../../source/renderer/app/components/wallet/widgets/VerticalSeparator';
 
 const { intl: enIntl } = new IntlProvider({
   locale: 'en-US',
@@ -79,6 +81,11 @@ const messages = defineMessages({
     description: 'Save description.',
   },
 });
+
+function WidgetPresentationBox({ children }) {
+  return <div style={{ padding: 20 }}>{children}</div>;
+}
+
 storiesOf('Common / Widgets', module)
   .addDecorator((story: any, context: any) => {
     if (context.name === 'CountdownWidget') {
@@ -193,25 +200,6 @@ storiesOf('Common / Widgets', module)
       </div>
     </div>
   ))
-  // @ts-ignore ts-migrate(2345) FIXME: Argument of type '(props: {    locale: string;}) =... Remove this comment to see the full error message
-  .add('MnemonicInputWidget - 9 words', (props: { locale: string }) => {
-    const tokens = observable(['', '', '', '', '', '', '', '', '']);
-    return (
-      <div
-        style={{
-          padding: 20,
-        }}
-      >
-        <MnemonicInputWidget
-          label={intl[props.locale].formatMessage(messages.recoveryPhrase)}
-          tokens={tokens}
-          onTokenChanged={(index, token) => {
-            tokens[index] = token;
-          }}
-        />
-      </div>
-    );
-  })
   .add('TinySwitch', () => <TinySwitch />)
   // @ts-ignore ts-migrate(2345) FIXME: Argument of type '(props: {    locale: string;}) =... Remove this comment to see the full error message
   .add('TinySwitch - short label', (props: { locale: string }) => (
@@ -230,4 +218,42 @@ storiesOf('Common / Widgets', module)
       <NormalSwitch onChange={action('onChange')} />
       <NormalSwitch onChange={action('onChange')} checked />
     </div>
+  ))
+  .add('CollapsibleTextBlock', () => (
+    <WidgetPresentationBox>
+      <CollapsibleSection header="Lorem ipsum dolor sit amet">
+        <p
+          style={{
+            font: '14px var(--font-light)',
+            color: 'var(--theme-main-body-messages-color)',
+          }}
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+          tincidunt fringilla tellus quis tempus. Phasellus sed magna in metus
+          blandit luctus sit amet in velit. Maecenas magna erat, vestibulum eget
+          commodo vel, placerat et arcu. Nam pellentesque tortor a nunc finibus
+          bibendum. Suspendisse gravida ut arcu eget ornare. In turpis est,
+          molestie et nisl sit amet, luctus elementum dui. Lorem ipsum dolor sit
+          amet, consectetur adipiscing elit. Praesent elementum cursus nunc, in
+          ultricies purus scelerisque et.Phasellus metus mi, varius interdum
+          sollicitudin nec, vulputate id purus. Suspendisse potenti. Donec
+          porta, eros ut pulvinar mattis, nunc libero venenatis erat, sed
+          ultrices ex ligula quis nibh. Praesent vehicula sapien nec cursus
+          vulputate. Donec ullamcorper vulputate enim et mattis. Suspendisse
+          potenti. Quisque quis venenatis elit, in fermentum mauris. Ut laoreet,
+          nibh a rhoncus rhoncus, mi est pretium neque, sit amet pellentesque
+          odio eros et augue.
+        </p>
+      </CollapsibleSection>
+    </WidgetPresentationBox>
+  ))
+  .add('Separator', () => (
+    <WidgetPresentationBox>
+      <Separator />
+    </WidgetPresentationBox>
+  ))
+  .add('VerticalSeparator', () => (
+    <WidgetPresentationBox>
+      <VerticalSeparator />
+    </WidgetPresentationBox>
   ));

@@ -1,4 +1,4 @@
-import TrezorConnect from 'trezor-connect';
+import TrezorConnect from '@trezor/connect';
 import { logger } from '../utils/logging';
 import { manifest } from './manifest';
 
@@ -14,7 +14,6 @@ export const initTrezorConnect = async () => {
     logger.info('[TREZOR-CONNECT] Called TrezorConnect.init()');
   } catch (error) {
     logger.info('[TREZOR-CONNECT] Failed to call TrezorConnect.init()');
-    throw error;
   }
 };
 

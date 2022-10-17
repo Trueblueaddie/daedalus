@@ -73,6 +73,16 @@ let
     buildInputs = daedalusShellBuildInputs;
     phases = [ "buildPhase" ]; buildPhase = "export > $out"; # actually cache the shell setup in $out (Hydra etc.)
   };
+
+  gcRoot = pkgs.runCommandLocal "gc-root" {
+    properBuildShell = buildShell.overrideAttrs (old: { buildCommand = "export >$out"; });
+    cardanoWalletsHaskellNix = daedalusPkgs.walletFlake.defaultNix.outputs.legacyPackages.${system}.roots;
+    ourHaskellNix = if pkgs.stdenv.isLinux then daedalusPkgs.yaml2json.project.roots else "";
+    daedalusInstallerInputs = with daedalusPkgs.daedalus-installer; buildInputs ++ nativeBuildInputs;
+    # cardano-bridge inputs are GC’d, and rebuilt too often on Apple M1 CI:
+    cardanoBridgeInputs = builtins.map (attr: if daedalusPkgs ? ${attr} && pkgs.lib.isDerivation daedalusPkgs.${attr} then daedalusPkgs.${attr} else null) (builtins.attrNames (builtins.functionArgs (import ./nix/cardano-bridge.nix)));
+  } "export >$out";
+
   debug.node = pkgs.writeShellScriptBin "debug-node" (with daedalusPkgs.launcherConfigs.launcherConfig; ''
     cardano-node run --topology ${nodeConfig.network.topologyFile} --config ${nodeConfig.network.configFile} --database-path ${stateDir}/chain --port 3001 --socket-path ${stateDir}/cardano-node.socket
   '');
@@ -202,4 +212,4 @@ let
       "
     '';
   };
-in daedalusShell // { inherit fixYarnLock buildShell devops; }
+in daedalusShell // { inherit fixYarnLock buildShell devops gcRoot; }

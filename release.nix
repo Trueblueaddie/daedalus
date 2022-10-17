@@ -48,6 +48,10 @@ forEachCluster (cluster: { daedalus.x86_64-linux = linux.internal.${cluster}.dae
   #shellEnvs.darwin-arm = outputs.devShells.aarch64-darwin.mainnet;
   shellEnvs.linux      = outputs.devShells.x86_64-linux.mainnet;
 
+  gcRoot.darwin = outputs.devShells.x86_64-darwin.mainnet.gcRoot;
+  #gcRoot.darwin-arm = outputs.devShells.aarch64-darwin.mainnet.gcRoot;
+  gcRoot.linux = outputs.devShells.x86_64-linux.mainnet.gcRoot;
+
   # Only used by (impure) Darwin installer build script
   buildShell.darwin     = outputs.devShells.x86_64-darwin.buildShell;
   #buildShell.darwin-arm = outputs.devShells.aarch64-darwin.buildShell;
