@@ -6,6 +6,8 @@
   # FIXME: add patches here after <https://github.com/NixOS/nix/issues/3920>
   inputs.cardano-wallet-unpatched.url = "github:input-output-hk/cardano-wallet/v2022-10-06";
 
+  inputs.cardano-world.url = "github:input-output-hk/cardano-world/74e93f9fdc863638ce43998e0ccccbf56b4612aa";
+
   # TODO: use `inputs.nixpkgs` – leaving at the previous one, since it rebuilds the world, since we patch systemd
   inputs.nixpkgs-ancient.url = "github:NixOS/nixpkgs/b67e752c29f18a0ca5534a07661366d6a2c2e649";
 

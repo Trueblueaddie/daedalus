@@ -54,7 +54,7 @@ let
     aarch64-darwin = macos.silicon;
   }.${target};
   walletPkgs = walletFlake.legacyPackages.${buildSystem}.pkgs; # FIXME: is this really needed? – @michalrus
-  cardanoWorldFlake = inputs.cardano-wallet-unpatched.inputs.cardano-world.outputs;
+  cardanoWorldFlake = inputs.cardano-world.outputs;
   # only used for CLI, to be removed when upgraded to next node version
   nodePkgs = import (walletFlake.outputs.packages.${buildSystem}.cardano-node.src + "/nix") {}; # FIXME: is this really needed? – @michalrus
   shellPkgs = (import "${inputs.cardano-shell}/nix") { inherit system; }; # FIXME: is this really needed? – @michalrus
