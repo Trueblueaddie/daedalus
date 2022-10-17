@@ -272,8 +272,8 @@ let
       srcCluster = if builtins.pathExists (./installers/icons + "/${cluster}") then cluster else "mainnet";
     in pkgs.runCommand "windows-icons-${cluster}" { inherit buildInputs; } ''
       mkdir -p $out/${cluster} $out
-      cp -r ${./installers/icons + "/${srcCluster}"}/. $out/${cluster}/.
-      cp ${./installers/icons/installBanner.bmp} $out/installBanner.bmp
+      cp -r ${inputs.self + "/installers/icons/${srcCluster}"}/. $out/${cluster}/.
+      cp ${inputs.self + "/installers/icons/installBanner.bmp"} $out/installBanner.bmp
       cd $out/${cluster}
       rm *.ico *.ICO || true   # XXX: just in case
       for f in *.png ; do
